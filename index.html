@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculadora de Salario</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f4f4f9;
+        }
+
+        .calculadora {
+            background: #ffffff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            max-width: 400px;
+            width: 100%;
+        }
+
+        .calculadora h1 {
+            font-size: 24px;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .input-group {
+            margin-bottom: 15px;
+        }
+
+        .input-group label {
+            display: block;
+            font-size: 14px;
+            margin-bottom: 5px;
+        }
+
+        .input-group input {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        .btn {
+            display: block;
+            width: 100%;
+            padding: 10px;
+            background: #007bff;
+            color: white;
+            font-size: 16px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+
+        .btn:hover {
+            background: #0056b3;
+        }
+
+        .resultado {
+            margin-top: 20px;
+            font-size: 16px;
+            font-weight: bold;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <div class="calculadora">
+        <h1>Calculadora de Salario</h1>
+        <div class="input-group">
+            <label for="horasOrdinarias">Horas ordinarias trabajadas (Q/h):</label>
+            <input type="number" id="horasOrdinarias" placeholder="Salario por hora ordinaria">
+        </div>
+        <div class="input-group">
+            <label for="horasExtras">Horas extras trabajadas (Q/h):</label>
+            <input type="number" id="horasExtras" placeholder="Salario por hora extra">
+        </div>
+        <div class="input-group">
+            <label for="igss">Descuento IGSS (en %):</label>
+            <input type="number" id="igss" placeholder="Porcentaje de descuento IGSS">
+        </div>
+        <div class="input-group">
+            <label for="isr">Descuento ISR (en %):</label>
+            <input type="number" id="isr" placeholder="Porcentaje de descuento ISR">
+        </div>
+        <div class="input-group">
+            <label for="bonificacion">Bonificación (Q):</label>
+            <input type="number" id="bonificacion" placeholder="Monto de bonificación">
+        </div>
+        <div class="input-group">
+            <label for="septimos">Días séptimos (Q/día):</label>
+            <input type="number" id="septimos" placeholder="Pago por día séptimo">
+        </div>
+        <button class="btn" onclick="calcularSalario()">Calcular Salario</button>
+        <div class="resultado" id="resultado"></div>
+    </div>
+
+    <script>
+        function calcularSalario() {
+            const horasOrdinarias = parseFloat(document.getElementById('horasOrdinarias').value) || 0;
+            const horasExtras = parseFloat(document.getElementById('horasExtras').value) || 0;
+            const igss = parseFloat(document.getElementById('igss').value) || 0;
+            const isr = parseFloat(document.getElementById('isr').value) || 0;
+            const bonificacion = parseFloat(document.getElementById('bonificacion').value) || 0;
+            const septimos = parseFloat(document.getElementById('septimos').value) || 0;
+
+            // Supongamos que se trabajan 40 horas ordinarias y 22 horas extras por semana.
+            const salarioBase = horasOrdinarias * 40 + horasExtras * 22;
+            const descuentoIGSS = salarioBase * (igss / 100);
+            const descuentoISR = salarioBase * (isr / 100);
+            const pagoSeptimos = septimos * 2;
+
+            const salarioFinal = salarioBase - descuentoIGSS - descuentoISR + bonificacion + pagoSeptimos;
+
+            document.getElementById('resultado').innerText = `Salario final: Q${salarioFinal.toFixed(2)}`;
+        }
+    </script>
+</body>
+</html>
